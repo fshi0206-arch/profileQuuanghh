@@ -1,120 +1,74 @@
 const birthDate = new Date(2007, 2, 10); 
 const singleSinceDate = new Date(2025, 3, 10); 
 
-const exLoveDate = new Date(2024, 9, 10); 
-
-
 function calculateAge(dob) {
-    const today = new Date();
-    let age = today.getFullYear() - dob.getFullYear();
-    const monthDiff = today.getMonth() - dob.getMonth();
-    
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
-        age--;
-    }
-    return age;
+    const today = new Date();
+    let age = today.getFullYear() - dob.getFullYear();
+    const monthDiff = today.getMonth() - dob.getMonth();
+    
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+        age--;
+    }
+    return age;
 }
 
 function displayDOBInfo() {
-    const dobElement = document.getElementById('dob-info');
-    if (dobElement) {
-        const age = calculateAge(birthDate);
-        const dobString = "10/03/2007"; 
-        dobElement.innerHTML = `Ngày sinh: <b>${dobString}</b> | Tuổi: <b>${age}</b>`;
-    }
+    const dobElement = document.getElementById('dob-info');
+    if (dobElement) {
+        const age = calculateAge(birthDate);
+        const dobString = "10/03/2007"; 
+        dobElement.innerHTML = `Ngày sinh: <b>${dobString}</b> | Tuổi: <b>${age}</b>`;
+    }
 }
 
 function updateLoveTimer() {
-    const daysContainer = document.getElementById('loveDays');
-    const timerContainer = document.getElementById('love-timer-mini');
-    
-    if (!daysContainer || !timerContainer) return; 
-
-    const now = new Date();
-    const diff = now - singleSinceDate; 
-    
-    const msInDay = 1000 * 60 * 60 * 24;
-    const totalDays = Math.floor(diff / msInDay);
-    
-    const diffRemainder = diff - (totalDays * msInDay);
-    
-    const h = Math.floor(diffRemainder / (1000 * 60 * 60));
-    const m = Math.floor((diffRemainder / (1000 * 60)) % 60);
-    const s = Math.floor((diffRemainder / 1000) % 60);
-
-    daysContainer.innerText = totalDays.toLocaleString('en-US'); 
-    
-    const units = timerContainer.querySelectorAll('.time-unit span');
-    
-    units[0].innerText = totalDays.toString().padStart(2, '0'); 
-    units[1].innerText = h.toString().padStart(2, '0');
-    units[2].innerText = m.toString().padStart(2, '0');
-    units[3].innerText = s.toString().padStart(2, '0');
-}
-
-function updateExLoveTimer() {
-    const exLoveElement = document.getElementById('ex-love-time-passed');
-    if (!exLoveElement) return;
+    const daysContainer = document.getElementById('loveDays');
+    const timerContainer = document.getElementById('love-timer-mini');
+    
+    if (!daysContainer || !timerContainer) return; 
 
     const now = new Date();
-    const diff = now - exLoveDate;
-
-    const msInYear = 1000 * 60 * 60 * 24 * 365.25; 
-    const msInMonth = 1000 * 60 * 60 * 24 * 30.44; 
+    const diff = now - singleSinceDate; 
+    
     const msInDay = 1000 * 60 * 60 * 24;
-
-    const years = Math.floor(diff / msInYear);
-    let diffRemaining = diff % msInYear;
-
-    const months = Math.floor(diffRemaining / msInMonth);
-    diffRemaining = diffRemaining % msInMonth;
+    const totalDays = Math.floor(diff / msInDay);
     
-    const days = Math.floor(diffRemaining / msInDay);
+    const diffRemainder = diff - (totalDays * msInDay);
     
-    let result = '';
+    const h = Math.floor(diffRemainder / (1000 * 60 * 60));
+    const m = Math.floor((diffRemainder / (1000 * 60)) % 60);
+    const s = Math.floor((diffRemainder / 1000) % 60);
 
-    if (years > 0) {
-        result += `${years} Năm, `;
-    }
-    if (months > 0) {
-        result += `${months} Tháng, `;
-    }
-    result += `${days} Ngày`;
+    daysContainer.innerText = totalDays.toLocaleString('en-US'); 
     
-    if (result.trim() === 'Ngày') {
-        const hours = Math.floor(diff / (1000 * 60 * 60));
-        result = `${hours} Giờ`;
-    } else {
-        result = result.trim().replace(/,$/, '');
-    }
-
-
-    exLoveElement.innerText = result; 
+    const units = timerContainer.querySelectorAll('.time-unit span');
+    
+    units[0].innerText = h.toString().padStart(2, '0');
+    units[1].innerText = m.toString().padStart(2, '0');
+    units[2].innerText = s.toString().padStart(2, '0');
 }
 
-
 function switchPage(pageId, buttonElement) {
-    document.querySelectorAll('.page-section').forEach(page => {
-        page.classList.remove('active-page');
-        page.style.display = 'none';
-    });
-    const target = document.getElementById('page-' + pageId);
-    if (target) {
-        target.style.display = 'block';
-        setTimeout(() => target.classList.add('active-page'), 10);
-    }
-    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-    if (buttonElement) {
-        buttonElement.classList.add('active');
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.querySelectorAll('.page-section').forEach(page => {
+        page.classList.remove('active-page');
+        page.style.display = 'none';
+    });
+    const target = document.getElementById('page-' + pageId);
+    if (target) {
+        target.style.display = 'block';
+        setTimeout(() => target.classList.add('active-page'), 10);
+    }
+    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+    if (buttonElement) {
+        buttonElement.classList.add('active');
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function toggleZaloQR() {
-    const modal = document.getElementById('zaloModal');
-    modal.classList.toggle('active');
+    const modal = document.getElementById('zaloModal');
+    modal.classList.toggle('active');
 }
-
 
 let player;
 let isPlaying = false; 
@@ -126,255 +80,252 @@ const durationTimeDisplay = document.getElementById('durationTime');
 const volumeSlider = document.getElementById('volumeSlider');
 
 function formatTime(time) {
-    if (isNaN(time) || time < 0) return '0:00';
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60).toString().padStart(2, '0');
-    return `${minutes}:${seconds}`;
+    if (isNaN(time) || time < 0) return '0:00';
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60).toString().padStart(2, '0');
+    return `${minutes}:${seconds}`;
 }
 
 function updateProgressBar() {
-    if (player && player.getDuration) {
-        const duration = player.getDuration();
-        const currentTime = player.getCurrentTime();
-        
-        if (duration > 0 && progressBar.max != duration) {
-            progressBar.max = duration; 
-            durationTimeDisplay.innerText = formatTime(duration);
-        }
+    if (player && player.getDuration) {
+        const duration = player.getDuration();
+        const currentTime = player.getCurrentTime();
+        
+        if (duration > 0 && progressBar.max != duration) {
+            progressBar.max = duration; 
+            durationTimeDisplay.innerText = formatTime(duration);
+        }
 
-        progressBar.value = currentTime;
-        currentTimeDisplay.innerText = formatTime(currentTime);
-    }
+        progressBar.value = currentTime;
+        currentTimeDisplay.innerText = formatTime(currentTime);
+    }
 }
 
 function seekTo(seekTime) {
-    if (player && player.getDuration) {
-        player.seekTo(seekTime, true);
-        currentTimeDisplay.innerText = formatTime(seekTime);
-    }
+    if (player && player.getDuration) {
+        player.seekTo(seekTime, true);
+        currentTimeDisplay.innerText = formatTime(seekTime);
+    }
 }
 
 function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-        height: '1', 
-        width: '1',
-        playerVars: {
-            'autoplay': 0, 
-            'controls': 0, 
-            'rel': 0, 
-            'modestbranding': 1,
-            'origin': window.location.origin, 
-            'enablejsapi': 1 
-        },
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-        }
-    });
+    player = new YT.Player('player', {
+        height: '1', 
+        width: '1',
+        playerVars: {
+            'autoplay': 0, 
+            'controls': 0, 
+            'rel': 0, 
+            'modestbranding': 1,
+            'origin': window.location.origin, 
+            'enablejsapi': 1 
+        },
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
 }
 
 function onPlayerReady(event) {
-    player.cueVideoById('V3oE5m-Uu2Y'); 
-    player.setVolume(50);
-    
-    if (volumeSlider) {
-        volumeSlider.value = player.getVolume();
-    }
-    
-    document.getElementById('currentSong').innerText = "Chọn bài để phát";
-    
-    const firstSong = document.querySelector('#musicList li:first-child');
-    if (firstSong) firstSong.classList.add('playing');
-    
-    progressInterval = setInterval(updateProgressBar, 1000); 
+    player.cueVideoById('V3oE5m-Uu2Y'); 
+    player.setVolume(50);
+    
+    if (volumeSlider) {
+        volumeSlider.value = player.getVolume();
+    }
+    
+    document.getElementById('currentSong').innerText = "Chọn bài để phát";
+    
+    const firstSong = document.querySelector('#musicList li:first-child');
+    if (firstSong) firstSong.classList.add('playing');
+    
+    progressInterval = setInterval(updateProgressBar, 1000); 
 
-    let checkDurationAttempts = 0;
-    const maxAttempts = 5;
+    let checkDurationAttempts = 0;
+    const maxAttempts = 5;
 
-    const checkDuration = setInterval(() => {
-        const duration = player.getDuration();
-        if (duration > 0) {
-            durationTimeDisplay.innerText = formatTime(duration);
-            progressBar.max = duration; 
-            clearInterval(checkDuration); 
-        }
-        checkDurationAttempts++;
-        if (checkDurationAttempts >= maxAttempts) {
-            clearInterval(checkDuration); 
-        }
-    }, 1000);
+    const checkDuration = setInterval(() => {
+        const duration = player.getDuration();
+        if (duration > 0) {
+            durationTimeDisplay.innerText = formatTime(duration);
+            progressBar.max = duration; 
+            clearInterval(checkDuration); 
+        }
+        checkDurationAttempts++;
+        if (checkDurationAttempts >= maxAttempts) {
+            clearInterval(checkDuration); 
+        }
+    }, 1000);
 }
 
 function onPlayerStateChange(event) {
-    const playIcon = document.getElementById('playIcon');
-    const vinylDisk = document.getElementById('vinylDisk');
-    const vinylGlow = document.querySelector('.vinyl-glow');
+    const playIcon = document.getElementById('playIcon');
+    const vinylDisk = document.getElementById('vinylDisk');
+    const vinylGlow = document.querySelector('.vinyl-glow');
 
-    if (event.data === YT.PlayerState.PLAYING) {
-        isPlaying = true;
-        playIcon.className = 'fa-solid fa-pause';
-        vinylDisk.classList.add('spinning');
-        if (vinylGlow) vinylGlow.style.opacity = '1';
-        
-        const duration = player.getDuration();
-        if (duration > 0 && durationTimeDisplay.innerText === '0:00') {
-            durationTimeDisplay.innerText = formatTime(duration);
-            progressBar.max = duration;
-        }
+    if (event.data === YT.PlayerState.PLAYING) {
+        isPlaying = true;
+        playIcon.className = 'fa-solid fa-pause';
+        vinylDisk.classList.add('spinning');
+        if (vinylGlow) vinylGlow.style.opacity = '1';
+        
+        const duration = player.getDuration();
+        if (duration > 0 && durationTimeDisplay.innerText === '0:00') {
+            durationTimeDisplay.innerText = formatTime(duration);
+            progressBar.max = duration;
+        }
 
-    } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED || event.data === YT.PlayerState.CUED) {
-        isPlaying = false;
-        playIcon.className = 'fa-solid fa-play';
-        vinylDisk.classList.remove('spinning');
-        if (vinylGlow) vinylGlow.style.opacity = '0.7';
-    }
-    
-    if (event.data === YT.PlayerState.ENDED) {
-        progressBar.value = 0;
-        currentTimeDisplay.innerText = '0:00';
-    }
+    } else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED || event.data === YT.PlayerState.CUED) {
+        isPlaying = false;
+        playIcon.className = 'fa-solid fa-play';
+        vinylDisk.classList.remove('spinning');
+        if (vinylGlow) vinylGlow.style.opacity = '0.7';
+    }
+    
+    if (event.data === YT.PlayerState.ENDED) {
+        progressBar.value = 0;
+        currentTimeDisplay.innerText = '0:00';
+    }
 }
 
 function playSong(element) {
-    const videoId = element.getAttribute('data-id');
-    const songName = element.innerText;
+    const videoId = element.getAttribute('data-id');
+    const songName = element.innerText;
 
-    if (!player || !videoId) {
-        alert("Trình phát nhạc chưa sẵn sàng. Vui lòng thử lại sau.");
-        return;
-    }
+    if (!player || !videoId) {
+        alert("Trình phát nhạc chưa sẵn sàng. Vui lòng thử lại sau.");
+        return;
+    }
 
-    document.querySelectorAll('#musicList li').forEach(li => li.classList.remove('playing'));
-    element.classList.add('playing');
-    
-    document.getElementById('currentSong').innerText = songName;
-    document.getElementById('currentPlaying').innerText = `(Đang phát: ${songName})`;
+    document.querySelectorAll('#musicList li').forEach(li => li.classList.remove('playing'));
+    element.classList.add('playing');
+    
+    document.getElementById('currentSong').innerText = songName;
+    document.getElementById('currentPlaying').innerText = `(Đang phát: ${songName})`;
 
-    progressBar.value = 0;
-    currentTimeDisplay.innerText = '0:00';
-    durationTimeDisplay.innerText = '0:00';
-    
-    player.loadVideoById(videoId);
-    player.playVideo();
-    
-    let checkDurationAttempts = 0;
-    const maxAttempts = 5;
+    progressBar.value = 0;
+    currentTimeDisplay.innerText = '0:00';
+    durationTimeDisplay.innerText = '0:00';
+    
+    player.loadVideoById(videoId);
+    player.playVideo();
+    
+    let checkDurationAttempts = 0;
+    const maxAttempts = 5;
 
-    const checkDuration = setInterval(() => {
-        const duration = player.getDuration();
-        if (duration > 0) {
-            durationTimeDisplay.innerText = formatTime(duration);
-            progressBar.max = duration; 
-            clearInterval(checkDuration); 
-        }
-        checkDurationAttempts++;
-        if (checkDurationAttempts >= maxAttempts) {
-            clearInterval(checkDuration); 
-        }
-    }, 1000); 
+    const checkDuration = setInterval(() => {
+        const duration = player.getDuration();
+        if (duration > 0) {
+            durationTimeDisplay.innerText = formatTime(duration);
+            progressBar.max = duration; 
+            clearInterval(checkDuration); 
+        }
+        checkDurationAttempts++;
+        if (checkDurationAttempts >= maxAttempts) {
+            clearInterval(checkDuration); 
+        }
+    }, 1000); 
 }
 
 function togglePlay() {
-    if (!player) return;
-    if (isPlaying) {
-        player.pauseVideo();
-    } else {
-        player.playVideo();
-    }
+    if (!player) return;
+    if (isPlaying) {
+        player.pauseVideo();
+    } else {
+        player.playVideo();
+    }
 }
 
 function changeVolume(value) {
-    if (player) player.setVolume(value);
+    if (player) player.setVolume(value);
 }
 
 function toggleMute() {
-    const muteIcon = document.getElementById('muteButton');
-    if (!player) return;
+    const muteIcon = document.getElementById('muteButton');
+    if (!player) return;
 
-    if (player.isMuted()) {
-        player.unMute();
-        muteIcon.className = 'fa-solid fa-volume-high';
-        volumeSlider.value = player.getVolume();
-    } else {
-        player.mute();
-        muteIcon.className = 'fa-solid fa-volume-xmark';
-        volumeSlider.value = 0;
-    }
+    if (player.isMuted()) {
+        player.unMute();
+        muteIcon.className = 'fa-solid fa-volume-high';
+        volumeSlider.value = player.getVolume();
+    } else {
+        player.mute();
+        muteIcon.className = 'fa-solid fa-volume-xmark';
+        volumeSlider.value = 0;
+    }
 }
-
 
 function togglePlayerControls() {
-    const controls = document.getElementById('playerControls');
-    if (controls) {
-        controls.classList.toggle('active');
-    }
+    const controls = document.getElementById('playerControls');
+    if (controls) {
+        controls.classList.toggle('active');
+    }
 }
-
-
 
 const words = ["System Optimizer", "Low-Level Engineer", "Performance Enthusiast", "Future Senior Dev"]; 
 let wordIndex = 0, charIndex = 0, isDeleting = false; 
-const typingText = document.querySelector(".typing-text");
 
 function type() { 
-    if (!typingText) return; 
-    const current = words[wordIndex]; 
-    typingText.textContent = current.substring(0, isDeleting ? --charIndex : ++charIndex); 
+    const typingText = document.querySelector(".typing-text");
+    if (!typingText) return; 
+    const current = words[wordIndex]; 
+    typingText.textContent = current.substring(0, isDeleting ? --charIndex : ++charIndex); 
 
-    if(!isDeleting && charIndex === current.length) { 
-        isDeleting = true; 
-        setTimeout(type, 2000); 
-    } else if(isDeleting && charIndex === 0) { 
-        isDeleting = false; 
-        wordIndex = (wordIndex + 1) % words.length; 
-        setTimeout(type, 500); 
-    } else {
-        setTimeout(type, isDeleting ? 100 : 200);
-    }
+    if(!isDeleting && charIndex === current.length) { 
+        isDeleting = true; 
+        setTimeout(type, 2000); 
+    } else if(isDeleting && charIndex === 0) { 
+        isDeleting = false; 
+        wordIndex = (wordIndex + 1) % words.length; 
+        setTimeout(type, 500); 
+    } else {
+        setTimeout(type, isDeleting ? 100 : 200);
+    }
 } 
 
 function toggleTheme() { 
-    const body = document.body;
-    const icon = document.getElementById('themeIcon'); 
-    if(body.getAttribute('data-theme')==='dark') { 
-        body.removeAttribute('data-theme'); 
-        icon.className='fa-solid fa-moon'; 
-        localStorage.setItem('theme','light'); 
-    } else { 
-        body.setAttribute('data-theme','dark'); 
-        icon.className='fa-solid fa-sun'; 
-        localStorage.setItem('theme','dark'); 
-    } 
+    const body = document.body;
+    const icon = document.getElementById('themeIcon'); 
+    if(body.getAttribute('data-theme')==='dark') { 
+        body.removeAttribute('data-theme'); 
+        icon.className='fa-solid fa-moon'; 
+        localStorage.setItem('theme','light'); 
+    } else { 
+        body.setAttribute('data-theme','dark'); 
+        icon.className='fa-solid fa-sun'; 
+        localStorage.setItem('theme','dark'); 
+    } 
 }
 
 window.onload = function() { 
-    if(localStorage.getItem('theme')==='dark') { 
-        document.body.setAttribute('data-theme','dark'); 
-        document.getElementById('themeIcon').className='fa-solid fa-sun'; 
-    } 
+    if(localStorage.getItem('theme')==='dark') { 
+        document.body.setAttribute('data-theme','dark'); 
+        const icon = document.getElementById('themeIcon');
+        if(icon) icon.className='fa-solid fa-sun'; 
+    } 
 
-    setInterval(() => { 
-        const clockElement = document.getElementById('clock');
-        if(clockElement) {
-            clockElement.innerText = new Date().toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit', second: '2-digit'});
-        }
-        updateLoveTimer(); 
-        updateExLoveTimer();
-    }, 1000); 
-    
-    displayDOBInfo();
-    type();
+    setInterval(() => { 
+        const clockElement = document.getElementById('clock');
+        if(clockElement) {
+            clockElement.innerText = new Date().toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit', second: '2-digit'});
+        }
+        updateLoveTimer(); 
+    }, 1000); 
+    
+    displayDOBInfo();
+    type();
 };
 
 window.onscroll = () => { 
-    document.querySelectorAll('.reveal').forEach(el => { 
-        if(el.getBoundingClientRect().top < window.innerHeight - 150) el.classList.add('active'); 
-    }); 
-    
-    const btn = document.querySelector('.scroll-up-btn'); 
-    if(btn) window.scrollY > 300 ? btn.classList.add('show') : btn.classList.remove('show'); 
+    document.querySelectorAll('.reveal').forEach(el => { 
+        if(el.getBoundingClientRect().top < window.innerHeight - 150) el.classList.add('active'); 
+    }); 
+    
+    const btn = document.querySelector('.scroll-up-btn'); 
+    if(btn) window.scrollY > 300 ? btn.classList.add('show') : btn.classList.remove('show'); 
 };
 
 function scrollToTop() { 
-    window.scrollTo({top: 0, behavior: 'smooth'}); 
+    window.scrollTo({top: 0, behavior: 'smooth'}); 
 }
