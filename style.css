@@ -100,17 +100,45 @@ header { position: fixed; width: 100%; top: 0; z-index: 100; padding: 15px 0; ba
     box-shadow: 0 0 15px rgba(88, 101, 242, 0.6); 
 }
 
-/* TikTok Hover hiệu ứng Hào yêu cầu */
-.tiktok:hover { 
-    background: #000000; 
-    color: #ff0050; 
-    box-shadow: 0 0 15px rgba(255, 0, 80, 0.5);
+.dc:hover { 
+    background: #5865F2; 
+    color: white; 
+    box-shadow: 0 0 15px rgba(88, 101, 242, 0.6); 
+}
+
+.social-icon {
+    position: relative;
+}
+
+.social-icon::after {
+    content: attr(data-title);
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e293b;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+    z-index: 99;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.social-icon:hover::after {
+    opacity: 1;
+    visibility: visible;
+    bottom: -45px;
 }
 
 .btn { display: inline-block; padding: 12px 28px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; border-radius: 50px; text-decoration: none; font-weight: 600; transition: 0.3s; border: none; cursor: pointer; margin-top: 30px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5); }
 
-/* --- GLASS CARD & SKILL STYLES --- */
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; } 
 @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
 
