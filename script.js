@@ -316,3 +316,17 @@ function toggleTheme() {
 function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 function toggleZaloQR() { document.getElementById('zaloModal').classList.toggle('active'); }
 function togglePlayerControls() { document.getElementById('playerControls').classList.toggle('active'); }
+
+const avatarWrapper = document.querySelector('.avatar-wrapper');
+
+if (avatarWrapper) {
+    avatarWrapper.addEventListener('click', function() {
+        this.classList.toggle('zoomed');
+    });
+}
+
+document.addEventListener('click', function(event) {
+    if (!avatarWrapper.contains(event.target)) {
+        avatarWrapper.classList.remove('zoomed');
+    }
+});
