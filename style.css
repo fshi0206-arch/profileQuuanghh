@@ -113,6 +113,43 @@ header { position: fixed; width: 100%; top: 0; z-index: 100; padding: 15px 0; ba
     border-color: transparent;
 }
 
+.social-icon.locket {
+    position: relative;
+}
+
+.locket-box {
+    width: 26px;
+    height: 26px;
+    background: #0d0d0d;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.8;
+}
+
+.locket-box i {
+    color: #ffffff !important;
+    font-size: 13px !important;
+}
+
+.social-icon.locket:hover {
+    background: #FFB800 !important;
+    box-shadow: 0 0 20px rgba(255, 184, 0, 0.6);
+    transform: translateY(-5px);
+}
+
+.social-icon.locket:hover .locket-box {
+    background: #000000;
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.social-icon.locket:hover .locket-box i {
+    color: #FFB800 !important;
+}
+
 .logo {
     cursor: pointer;
     user-select: none;
