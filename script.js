@@ -329,8 +329,4 @@ document.addEventListener('click', function(event) {
     if (!avatarWrapper.contains(event.target)) {
         avatarWrapper.classList.remove('zoomed');
     }
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> b936eb7d68702b71d654948853c88365c31857f9
